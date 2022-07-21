@@ -18,7 +18,7 @@ export default function Modal({
 	}
 
 	return (
-		<div className='absolute top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-40'>
+		<div className='fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-40 z-20'>
 			<div className='absolute w-full h-full top-0 left-0 z-0' onClick={close} />
 
 			<div className='relative w-[90%] h-auto max-h-[70%] md:w-[650px] bg-slate-800 rounded-md z-10'>

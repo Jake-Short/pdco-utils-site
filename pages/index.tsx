@@ -52,7 +52,7 @@ const Home: NextPage = () => {
           <Card
             title='Planetary Defense By the Numbers PDF'
             subtitle='Download an auto-filled PDF graphic'
-            image='/PlanetaryDefenseByTheNumbersPDF_Image.png'
+            image='/PlanetaryDefenseByTheNumbersPDF_Image.jpg'
             alt='PDF with data relating to planetary defense, such as NEOs discovered.'
             width={1354}
             height={1812}
@@ -70,7 +70,7 @@ const Home: NextPage = () => {
           <Card
             title='Planetary Defense By the Numbers Data'
             subtitle='Fetch and display the Planetary Defense By the Numbers data'
-            image='/PlanetaryDefenseByTheNumbersYT.png'
+            image='/PlanetaryDefenseByTheNumbersYT.jpg'
             alt='Planetary defense by the numbers text in center, with two asteroids and a satellite in the back'
             width={2528}
             height={1284}
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
         </div>
       </main>
 
-      <footer className='mt-auto text-sm text-gray-400'>
+      <footer className='mt-auto text-sm text-gray-400 pt-10 md:pt-0'>
         <a className='border-b-gray-100 hover:text-gray-100 hover:border-b' href='https://small-bodies-node.github.io/pdco-dashboard' target='_blank' rel='noopener noreferrer'>
           PDCO Dashboard
         </a>
