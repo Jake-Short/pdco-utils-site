@@ -21,12 +21,12 @@ export default function Modal({
 		<div className='fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-40 z-20'>
 			<div className='absolute w-full h-full top-0 left-0 z-0' onClick={close} />
 
-			<div className='relative w-[90%] h-auto max-h-[70%] md:w-[650px] bg-slate-800 rounded-md z-10'>
+			<div className='relative w-[90%] h-auto max-h-[70%] md:w-[650px] bg-slate-800 rounded-md z-10 overflow-auto'>
 				<div className='absolute top-0 right-0 mt-2 mr-4 text-2xl rotate-45 text-gray-300 hover:text-gray-100 cursor-pointer transition-all' onClick={close}>
 					+
 				</div>
 
-				<div className='pt-10 w-full h-full overflow-auto px-5'>
+				<div className='pt-10 w-full h-full px-5'>
 					{children}
 				</div>
 			</div>

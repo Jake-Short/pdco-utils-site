@@ -79,6 +79,7 @@ const Home: NextPage = () => {
               if(!isByTheNumbersDataLoading) {
                 setIsByTheNumbersDataLoading(true);
                 const byTheNumbersData: IByTheNumbersData = await (await fetch('/api/getByTheNumbersData')).json();
+                const observationsSubmittedToMpc = await (await fetch('/api/getNumberObservationsMpc')).text();
                 setIsByTheNumbersDataLoading(false);
 
                 setDataModalData([
@@ -112,7 +113,7 @@ const Home: NextPage = () => {
                   },
                   {
                     title: 'Observations Submitted to MPC',
-                    data: byTheNumbersData.observationsSubmittedToMpc + ' million'
+                    data: observationsSubmittedToMpc + ' million'
                   }
                 ]);
                 setIsDataModalShown(true);

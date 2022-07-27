@@ -65,21 +65,13 @@ const getDataInternal = async (): Promise<IByTheNumbersData> => {
 	const discovered_neas_greater_than_140m = nea_totals['140m+'] as number;
 	const discovered_neas_greater_than_1km = nea_totals['1km+'] as number;
 
-	// MPC site parsing
-	const raw_data = await (await fetch('https://minorplanetcenter.net/mpc/summary')).text();
-
-	const $ = cheerio.load(raw_data);
-	const observations_text = $('td').first().text();
-	const total_observations = Math.round(parseInt(observations_text) / 1000000);
-
 	return {
 		yearsOfProgram: years_of_program,
 		totalNeasDiscovered: discovered_neas,
 		totalNeasDiscoveredGreaterThan140m: discovered_neas_greater_than_140m,
 		totalNeasDiscoveredGreaterThan1km: discovered_neas_greater_than_1km,
 		neasWithinMoonPast365Days: neos_past_year_1LD,
-		neasWithinMoonPast30Days: neos_past_month_1LD,
-		observationsSubmittedToMpc: total_observations
+		neasWithinMoonPast30Days: neos_past_month_1LD
 	};
 }
 

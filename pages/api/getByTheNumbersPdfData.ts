@@ -61,22 +61,14 @@ const getPdfInternal = async (): Promise<IByTheNumbersPdfData> => {
 	const phas_count = numbers_data['data'][numbers_data['data'].length - 1][7] as number;
 	const necs_count = numbers_data['data'][numbers_data['data'].length - 1][1] as number;
 
-	// MPC site parsing
-	const raw_data = await (await fetch('https://minorplanetcenter.net/mpc/summary')).text();
-
-	const $ = cheerio.load(raw_data);
-	const observations_text = $('td').first().text();
-	const total_observations = Math.round(parseInt(observations_text) / 1000000);
-
 	return {
 		program_years: years_of_program.toString(),
-		neas_discovered: discovered_neas.toString(),
-		neas_greater_than_1km: discovered_neas_greater_than_1km.toString(),
-		neas_greater_than_140m: discovered_neas_greater_than_140m.toString(),
+		neas_discovered: discovered_neas.toLocaleString('en-US'),
+		neas_greater_than_1km: discovered_neas_greater_than_1km.toLocaleString('en-US'),
+		neas_greater_than_140m: discovered_neas_greater_than_140m.toLocaleString('en-US'),
 		neas_within_moon: neos_past_year_1LD['count'],
-		observations_submitted_to_mpc: total_observations.toString(),
 		date_generated: `${now.toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}`,
-		current_phas: phas_count.toString(),
+		current_phas: phas_count.toLocaleString('en-US'),
 		necs_known: necs_count.toString()
 	}
 }
