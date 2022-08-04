@@ -32,7 +32,7 @@ export default function Card({
 				/>
 			</div>
 			
-			<div className='flex flex-col items-start text-gray-100 md:ml-5 mt-5 md:mt-0'>
+			<div className='flex flex-col items-center md:items-start text-gray-100 md:ml-5 mt-5 md:mt-0'>
 				<h2 className='text-xl font-semibold'>
 					{title}
 				</h2>
