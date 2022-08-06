@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { IDiscoveryStatsData } from '../models/IDiscoveryStatsData';
 import Button from './Button';
 
+/**
+ * Popup modal that promps user for a time period (fiscal or calendar year)
+ * and year, then fetches and displays the discovery stats for that time.
+ */
 export default function DiscoveryStatsModalContent() {
 	const [timePeriod, setTimePeriod] = useState('placeholder');
 	const [year, setYear] = useState('placeholder');

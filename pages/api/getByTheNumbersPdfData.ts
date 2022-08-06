@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import * as cheerio from 'cheerio';
 import { IByTheNumbersPdfData } from '../../models/IByTheNumbersPdfData';
 
 /**
@@ -13,11 +12,8 @@ const getByTheNumbersPdf = (_: NextApiRequest, res: NextApiResponse) => {
 }
 
 const getPdfInternal = async (): Promise<IByTheNumbersPdfData> => {
-	/**
-	 * Data Fetching
-	 */
-
-	const padWithLeadingZero = (numToPad: number) => {
+	// Utility function to pad number with zeroes to make it 2 characters long
+	const padWithLeadingZero = (numToPad: number): string => {
 		return ('0' + numToPad).slice(-2);
 	}
 

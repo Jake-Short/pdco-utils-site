@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import * as cheerio from 'cheerio';
 import { IByTheNumbersData } from '../../models/IByTheNumbersData';
 
+/**
+ * Retrives By the Numbers Data for use in popup.
+ */
 const getByTheNumbersData = (req: NextApiRequest, res: NextApiResponse) => {
   return getDataInternal().then((result: IByTheNumbersData) => {
 		res.setHeader('Content-Type', 'application/json');
@@ -10,10 +12,7 @@ const getByTheNumbersData = (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const getDataInternal = async (): Promise<IByTheNumbersData> => {
-	/**
-	 * Data Fetching
-	 */
-
+	// Utility function to pad number with zeroes to make it 2 characters long
 	const padWithLeadingZero = (numToPad: number) => {
 		return ('0' + numToPad).slice(-2);
 	}

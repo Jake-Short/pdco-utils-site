@@ -19,13 +19,16 @@ const Home: NextPage = () => {
   const [isModalShown, setIsModalShown] = useState(false);
   const [modalContent, setModalContent] = useState<JSX.Element | JSX.Element[] | undefined>();
 
+  // Fetch by the numbers data from the API and load it into state,
+  // and  show the popup
   const loadByTheNumbersData = async () => {
     if(!isByTheNumbersDataLoading) {
+      // Show the loading indicator and fetch the data
       setIsByTheNumbersDataLoading(true);
       const byTheNumbersData: IByTheNumbersData = await (await fetch('/api/getByTheNumbersData')).json();
       const observationsSubmittedToMpc = await (await fetch('/api/getNumberObservationsMpc')).text();
-      setIsByTheNumbersDataLoading(false);
 
+      // Load the fetched data into an array
       const dataModalData = [
         {
           title: 'Years of Program',
@@ -61,7 +64,7 @@ const Home: NextPage = () => {
         }
       ];
 
-      setIsModalShown(true);
+      // Loop through the array to generate the popup content
       const content = <div className='flex flex-col items-start w-full pb-5'>
         {dataModalData.map((item, index) => (
           <div className='text-gray-100 mb-3' key={index}>
@@ -76,10 +79,14 @@ const Home: NextPage = () => {
         ))}
       </div>;
 
+      // Store content in state and show popup
       setModalContent(content);
+      setIsByTheNumbersDataLoading(false);
+      setIsModalShown(true);
     }
   }
 
+  // Show the discovery stats modal
   const loadDiscoveryStats = async () => {
     setIsModalShown(true);
     setModalContent(<DiscoveryStatsModalContent />);
@@ -136,7 +143,7 @@ const Home: NextPage = () => {
             isButtonLoading={isByTheNumbersDataLoading}
           />
 
-          <Card
+          {/* <Card
             title='Discovery Stats'
             subtitle='Fetch and display discovery statistics'
             image='/DiscoveryStatsThumbnail.jpg'
@@ -148,7 +155,7 @@ const Home: NextPage = () => {
               loadDiscoveryStats();
             }}
             isButtonLoading={isDiscoveryStatsLoading}
-          />
+          /> */}
         </div>
       </main>
 
