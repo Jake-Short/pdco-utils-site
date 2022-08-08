@@ -16,12 +16,17 @@ const getNumberObservationsMpc = (req: NextApiRequest, res: NextApiResponse) => 
 // Internal function for getting data
 const getDataInternal = async (): Promise<string> => {
 	// MPC site parsing
-	const raw_data = await (await fetch('https://minorplanetcenter.net/mpc/summary')).text();
+	const raw_data = await (await fetch('https://minorplanetcenter.net')).text();
 
 	// Load the webpage into cheerio and pull out the observations text
 	const $ = cheerio.load(raw_data);
-	const observations_text = $('td').first().text();
-	const total_observations = Math.round(parseInt(observations_text) / 1000000);
+	
+	const observations_text = $('span:contains("Observations")')
+	.parent().parent().find('td:contains("ALL TIME:")').next().text();
+
+	console.log(observations_text);
+
+	const total_observations = Math.round(parseFloat(observations_text.replace(/[^\d.-]/g, '')));
 
 	return total_observations.toString();
 }
