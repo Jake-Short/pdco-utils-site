@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IDiscoveryStatsData } from '../models/IDiscoveryStatsData';
+import { getDiscoveryStats } from '../utils/getDiscoveryStats';
 import Button from './Button';
 
 /**
@@ -26,6 +27,7 @@ export default function DiscoveryStatsModalContent() {
 	const [displayedCadEndDate, setDisplayedCadEndDate] = useState('');
 
 	const [years, setYears] = useState<number[]>([]);
+	const [fyYears, setFyYears] = useState<number[]>([]);
 
 	useEffect(() => {
 		// Generate year elements
@@ -35,7 +37,14 @@ export default function DiscoveryStatsModalContent() {
 			elements.push(today.getFullYear() - i);
 		}
 
+		let fyYearsCopy = [...elements];
+		// Next years FY has started
+		if(today.getMonth() > 8) {
+			//fyYearsCopy.unshift(today.getFullYear() + 1);
+		}
+
 		setYears(elements);
+		setFyYears(fyYearsCopy);
 	}, []);
 
 	// Load data for selected time perido and year
@@ -78,12 +87,14 @@ export default function DiscoveryStatsModalContent() {
 			}
 		}
 
-		const discoveryStats: IDiscoveryStatsData = await (await fetch(`/api/getDiscoveryStats?numbersStartDate=${numbersStartDateString}&numbersEndDate=${numbersEndDateString}`)).json();
-		setDiscoveryStats(discoveryStats);
-		setDisplayedStartDate(numbersStartDateString);
-		setDisplayedEndDate(numbersEndDateString);
+		const discoveryStats: IDiscoveryStatsData | null = await getDiscoveryStats(numbersStartDateString, numbersEndDateString);
+		if(discoveryStats) {
+			setDiscoveryStats(discoveryStats);
+			setDisplayedStartDate(numbersStartDateString);
+			setDisplayedEndDate(numbersEndDateString);
+		}
 
-		const cadData = await(await fetch(`/api/getUrlBypassCors?url=https://ssd-api.jpl.nasa.gov/cad.api?date-min=${cadStartDateString}&date-max=${cadEndDateString}&dist-max=1LD`)).json();
+		const cadData = await(await fetch(`https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://ssd-api.jpl.nasa.gov/cad.api?date-min=${cadStartDateString}&date-max=${cadEndDateString}&dist-max=1LD`)).json();
 		let belowGeo = 0;
 		cadData.data.forEach((element: string[]) => {
 			if(parseFloat(element[4]) < 0.00023920795) {
@@ -100,6 +111,11 @@ export default function DiscoveryStatsModalContent() {
 		setIsButtonLoading(false);
 		setDisplayedYear(year);
 		setDisplayedTimePeriod(timePeriod);
+	}
+
+	const isFyPartial = (year: number) => {
+		const today = new Date();
+		return (year === today.getFullYear() && (today.getMonth() <= 8)) || year > today.getFullYear();
 	}
 
 	return (
@@ -132,9 +148,9 @@ export default function DiscoveryStatsModalContent() {
 						Please select an option
 					</option>
 
-					{years.map((item, index) => (
+					{(timePeriod === 'fiscalYear' ? fyYears : years).map((item, index) => (
 						<option key={index} value={item}>
-							{timePeriod === 'fiscalYear' && 'FY'}{item}{item === (new Date()).getFullYear() && ' (Partial)'}
+							{timePeriod === 'fiscalYear' && 'FY'}{item}{isFyPartial(item) && ' (Partial)'}
 						</option>
 					))}
 				</select>

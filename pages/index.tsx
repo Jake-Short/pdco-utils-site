@@ -143,7 +143,7 @@ const Home: NextPage = () => {
             isButtonLoading={isByTheNumbersDataLoading}
           />
 
-          {/* <Card
+          <Card
             title='Discovery Stats'
             subtitle='Fetch and display discovery statistics'
             image='/DiscoveryStatsThumbnail.jpg'
@@ -155,7 +155,7 @@ const Home: NextPage = () => {
               loadDiscoveryStats();
             }}
             isButtonLoading={isDiscoveryStatsLoading}
-          /> */}
+          />
         </div>
       </main>
 
