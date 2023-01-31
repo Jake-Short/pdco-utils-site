@@ -94,7 +94,7 @@ export default function DiscoveryStatsModalContent() {
 			setDisplayedEndDate(numbersEndDateString);
 		}
 
-		const cadData = await(await fetch(`https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://ssd-api.jpl.nasa.gov/cad.api?date-min=${cadStartDateString}&date-max=${cadEndDateString}&dist-max=1LD`)).json();
+		const cadData = await(await fetch(`https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://ssd-api.jpl.nasa.gov/cad.api%26date-min=${cadStartDateString}%26date-max=${cadEndDateString}%26dist-max=1LD`)).json();
 		let belowGeo = 0;
 		cadData.data.forEach((element: string[]) => {
 			if(parseFloat(element[4]) < 0.00023920795) {
