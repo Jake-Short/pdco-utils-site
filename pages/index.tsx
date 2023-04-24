@@ -102,14 +102,14 @@ const Home: NextPage = () => {
       </Modal>
 
       <Head>
-        <title>PDCO Resources &amp; Utilities</title>
-        <meta name="description" content="Resources and utilities for PDCO" />
+        <title>Planetary Defense By the Numbers</title>
+        <meta name="description" content="Data and resources for Planetary Defense" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className='flex flex-col items-start justify-start'>
         <h1 className='text-4xl font-semibold text-gray-100'>
-          PDCO Resources &amp; Utilities
+          Planetary Defense By the Numbers
         </h1>
 
         <div className='flex flex-col items-start w-full'>
@@ -158,12 +158,6 @@ const Home: NextPage = () => {
           />
         </div>
       </main>
-
-      <footer className='mt-auto text-sm text-gray-400 pt-12'>
-        <a className='border-b-gray-100 hover:text-gray-100 hover:border-b' href='https://small-bodies-node.github.io/pdco-dashboard' target='_blank' rel='noopener noreferrer'>
-          PDCO Dashboard
-        </a>
-      </footer>
     </div>
   )
 }
