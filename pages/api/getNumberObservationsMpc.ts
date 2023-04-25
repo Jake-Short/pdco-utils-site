@@ -24,8 +24,6 @@ const getDataInternal = async (): Promise<string> => {
 	const observations_text = $('span:contains("Observations")')
 	.parent().parent().find('td:contains("ALL TIME:")').next().text();
 
-	console.log(observations_text);
-
 	const total_observations = Math.round(parseFloat(observations_text.replace(/[^\d.-]/g, '')));
 
 	return total_observations.toString();

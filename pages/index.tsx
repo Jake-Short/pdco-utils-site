@@ -1,4 +1,3 @@
-import { contents } from 'cheerio/lib/api/traversing';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
