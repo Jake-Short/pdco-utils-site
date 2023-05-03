@@ -40,7 +40,7 @@ export default function DiscoveryStatsModalContent() {
 		let fyYearsCopy = [...elements];
 		// Next years FY has started
 		if(today.getMonth() > 8) {
-			//fyYearsCopy.unshift(today.getFullYear() + 1);
+			fyYearsCopy.unshift(today.getFullYear() + 1);
 		}
 
 		setYears(elements);
@@ -91,10 +91,13 @@ export default function DiscoveryStatsModalContent() {
 		if(discoveryStats) {
 			setDiscoveryStats(discoveryStats);
 			setDisplayedStartDate(numbersStartDateString);
-			setDisplayedEndDate(numbersEndDateString);
+			setDisplayedEndDate(discoveryStats.actualFetchedEndDate);
+		}
+		else {
+			console.log("no discovery stats :(");
 		}
 
-		const cadData = await(await fetch(`https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://ssd-api.jpl.nasa.gov/cad.api%3Fdate-min=${cadStartDateString}%26date-max=${cadEndDateString}%26dist-max=1LD`)).json();
+		const cadData = await(await fetch(`/api/getCadData?dateMin=${cadStartDateString}&dateMax=${cadEndDateString}`)).json();
 		let belowGeo = 0;
 		cadData.data.forEach((element: string[]) => {
 			if(parseFloat(element[4]) < 0.00023920795) {

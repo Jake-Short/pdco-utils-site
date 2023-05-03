@@ -1,7 +1,8 @@
-export const getDiscoveryStats = async (numbersStartDate: string, numbersEndDate: string) => {
-	// https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats
+import { IDiscoveryStatsData } from "../models/IDiscoveryStatsData";
+
+export const getDiscoveryStats = async (numbersStartDate: string, numbersEndDate: string): Promise<IDiscoveryStatsData | null> => {
 	// Fetch the numbers data
-	const numbersData = await (await fetch('https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://cneos.jpl.nasa.gov/stats/numbers.json')).json();
+	const numbersData = await (await fetch('/api/getNeoNumbers')).json();
 
 	let startRow = null;
 	let endRow = null;
@@ -18,8 +19,13 @@ export const getDiscoveryStats = async (numbersStartDate: string, numbersEndDate
 		}
 	}
 
+	// end row is null, so get the very latest
+	if(endRow === null) {
+		endRow = numbersData.data[numbersData.data.length - 1];
+	}
+
 	// Fetch NEA totals data
-	const neaTotals = await (await fetch('https://us-central1-healthy-earth-356019.cloudfunctions.net/discovery-stats?url=https://cneos.jpl.nasa.gov/stats/nea_totals.json')).json();
+	const neaTotals = await (await fetch('/api/getNeaTotals')).json();
 
 	// Both rows were successfully found
 	if(startRow && endRow) {
@@ -32,6 +38,8 @@ export const getDiscoveryStats = async (numbersStartDate: string, numbersEndDate
 			neasDiscovered140mAllTime: neaTotals['140m+'],
 			neasDiscovered1kmAllTime: neaTotals['1km+'],
 			neasDiscoveredAllTime: neaTotals['all'],
+
+			actualFetchedEndDate: endRow[0]
 		}
 	}
 	// One or both rows not found (likely due to invalid date passed)

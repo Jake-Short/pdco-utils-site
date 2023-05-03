@@ -6,6 +6,7 @@ import DiscoveryStatsModalContent from '../components/DiscoveryStatsModalContent
 import Modal from '../components/Modal';
 import { IByTheNumbersData } from '../models/IByTheNumbersData';
 import downloadByTheNumbersPdf from '../utils/downloadByTheNumbersPdf';
+import { getDiscoveryStats } from '../utils/getDiscoveryStats';
 
 /**
  * Home page for the site
