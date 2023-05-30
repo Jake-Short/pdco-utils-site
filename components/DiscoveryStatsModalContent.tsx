@@ -97,7 +97,7 @@ export default function DiscoveryStatsModalContent() {
 			console.log("no discovery stats :(");
 		}
 
-		const cadData = await(await fetch(`/api/getCadData?dateMin=${cadStartDateString}&dateMax=${cadEndDateString}`)).json();
+		const cadData = await(await fetch(`/api/getCadData?dateMin=${cadStartDateString}&dateMax=${cadEndDateString}&distMax=1LD`)).json();
 		let belowGeo = 0;
 		cadData.data.forEach((element: string[]) => {
 			if(parseFloat(element[4]) < 0.00023920795) {
